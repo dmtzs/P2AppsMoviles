@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Posesionista</string>
+    <string name="label_nombre">Nombre</string>
+    <string name="label_precio">Precio</string>
+    <string name="label_serie">Serie</string>
+    <string name="label_fecha"> Fecha </string>
+    <string name="label_nombre_tabla"> Nombre de Cosa </string>
+    <string name="label_precio_tabla"> Precio </string>
+    <string name="nombre_fecha_boton">Cambiar fecha</string>
+</resources>
