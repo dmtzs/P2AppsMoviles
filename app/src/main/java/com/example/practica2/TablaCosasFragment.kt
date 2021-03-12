@@ -137,6 +137,14 @@ class TablaCosasFragment : Fragment(){
             {
                 holder.itemView.setBackgroundColor(Color.BLACK)
             }
+            if (cosa.valorEnPesos<= 999 && cosa.valorEnPesos>= 899)
+            {
+                holder.itemView.setBackgroundColor(Color.rgb(139, 39, 182))
+            }
+            if (cosa.valorEnPesos>999)
+            {
+                holder.itemView.setBackgroundColor(Color.rgb(95, 47, 13))
+            }
         }
 
         override fun getItemCount() = inventario.size
