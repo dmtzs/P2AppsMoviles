@@ -110,39 +110,39 @@ class TablaCosasFragment : Fragment(){
             {
                 holder.itemView.setBackgroundColor(Color.RED)
             }
-            if(cosa.valorEnPesos<= 199 && cosa.valorEnPesos> 99)
+            if(cosa.valorEnPesos in 100..199)
             {
                 holder.itemView.setBackgroundColor(Color.BLUE)
             }
-            if (cosa.valorEnPesos<= 299 && cosa.valorEnPesos> 199)
+            if (cosa.valorEnPesos in 200..299)
             {
                 holder.itemView.setBackgroundColor(Color.rgb(29, 115, 31))
             }
-            if (cosa.valorEnPesos<= 399 && cosa.valorEnPesos> 299)
+            if (cosa.valorEnPesos in 300..399)
             {
                 holder.itemView.setBackgroundColor(Color.DKGRAY)
             }
-            if (cosa.valorEnPesos<= 499 && cosa.valorEnPesos> 399)
+            if (cosa.valorEnPesos in 400..499)
             {
                 holder.itemView.setBackgroundColor(Color.MAGENTA)
             }
-            if (cosa.valorEnPesos<= 599 && cosa.valorEnPesos> 499)
+            if (cosa.valorEnPesos in 500..599)
             {
                 holder.itemView.setBackgroundColor(Color.rgb(205, 164, 52))//rgb(237, 248, 51)
             }
-            if (cosa.valorEnPesos<= 699 && cosa.valorEnPesos> 599)
+            if (cosa.valorEnPesos in 600..699)
             {
                 holder.itemView.setBackgroundColor(Color.rgb(47, 179, 174))//rgb(47, 179, 174)
             }
-            if (cosa.valorEnPesos<= 799 && cosa.valorEnPesos> 699)
+            if (cosa.valorEnPesos in 700..799)
             {
                 holder.itemView.setBackgroundColor(Color.LTGRAY)
             }
-            if (cosa.valorEnPesos<= 899 && cosa.valorEnPesos>= 799)
+            if (cosa.valorEnPesos in 799..899)
             {
                 holder.itemView.setBackgroundColor(Color.BLACK)
             }
-            if (cosa.valorEnPesos<= 999 && cosa.valorEnPesos>= 899)
+            if (cosa.valorEnPesos in 899..999)
             {
                 holder.itemView.setBackgroundColor(Color.rgb(139, 39, 182))
             }
