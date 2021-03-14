@@ -3,7 +3,6 @@ package com.example.practica2
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
-
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -84,7 +83,7 @@ class cosaFragment: Fragment() {
                     cosa.nombreDeCosa = s.toString()
                 }
                 if (s.hashCode()==campoDePrecio.text.hashCode()){
-                    if (s!= null)
+                    if (s!= null)//Necesario para el isEmpty()
                     {
                         if (s.isEmpty()){
                             cosa.valorEnPesos= 0
@@ -107,6 +106,7 @@ class cosaFragment: Fragment() {
         campoDeNombre.addTextChangedListener(observador)
         campoDePrecio.addTextChangedListener(observador)
         campoDeSerie.addTextChangedListener(observador)
+
         //-------------------DatePicker-------------------------------------------------------------
         val calendario = Calendar.getInstance()
         val anio = calendario.get(Calendar.YEAR)

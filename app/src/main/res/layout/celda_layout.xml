@@ -13,6 +13,13 @@
     <TextView
         android:id="@+id/precio_cosa"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="340dp"
         android:text="@string/label_precio_tabla" />
+
+    <TextView
+        android:id="@+id/serie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/serie" />
 </LinearLayout>

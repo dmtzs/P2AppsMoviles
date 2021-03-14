@@ -18,4 +18,8 @@ class TablaCosaViewModel :ViewModel(){
             inventario += cosa
         }
     }
+    fun eliminaCosa(dePosicion: Int)
+    {
+        inventario.removeAt(dePosicion)
+    }
 }

@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/label_serie"
+        android:text="@string/serie"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/campoSerie"
         app:layout_constraintStart_toStartOf="parent" />
@@ -72,7 +72,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:enabled="false"
-        android:hint="@string/label_serie"
+        android:hint="@string/serie"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
