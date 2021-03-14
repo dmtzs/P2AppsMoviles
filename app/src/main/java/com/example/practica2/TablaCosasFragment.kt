@@ -70,8 +70,9 @@ class TablaCosasFragment : Fragment(){
 
     private inner class CosaHolder(vista: View): RecyclerView.ViewHolder(vista), View.OnClickListener {
         private lateinit var cosa: Cosa
-        val nombreTextView: TextView = itemView.findViewById(R.id.nombre_cosa)
-        val precioTextView: TextView = itemView.findViewById(R.id.precio_cosa)
+        val nombreTextView: TextView= itemView.findViewById(R.id.nombre_cosa)
+        val precioTextView: TextView= itemView.findViewById(R.id.precio_cosa)
+        val serieTextView: TextView= itemView.findViewById(R.id.serie_cosa)
 
         init{
             itemView.setOnClickListener(this)
@@ -79,8 +80,9 @@ class TablaCosasFragment : Fragment(){
         @SuppressLint("SetTextI18n")
         fun holderBinding(cosa: Cosa){
             this.cosa = cosa
-            nombreTextView.text = cosa.nombreDeCosa
-            precioTextView.text = "$ ${cosa.valorEnPesos}"
+            nombreTextView.text= cosa.nombreDeCosa
+            precioTextView.text= "$ ${cosa.valorEnPesos}"
+            serieTextView.text= "${cosa.numeroDeSerie}"
         }
 
         override fun onClick(v: View?) {
