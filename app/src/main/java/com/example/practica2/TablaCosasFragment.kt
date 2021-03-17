@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.util.*
 
 
 private const val TAG = "TablaCosasFragment"
@@ -64,6 +65,12 @@ class TablaCosasFragment : Fragment(){
         tableRecyclerView = vista.findViewById(R.id.tabla_recycler_view) as RecyclerView
         tableRecyclerView.layoutManager = LinearLayoutManager(context)
         detectaGestosEnTabla()
+        val adaptador=  CosaAdapter(tablaCosasViewModel.inventario)
+        val callback= DragManageAdapter(adaptador, this,
+        ItemTouchHelper.UP.or(ItemTouchHelper.DOWN), ItemTouchHelper.LEFT)
+        val helper = ItemTouchHelper(callback)
+        helper.attachToRecyclerView(tableRecyclerView)
+
         pueblaLaTabla()
         return  vista
     }
@@ -91,11 +98,15 @@ class TablaCosasFragment : Fragment(){
         }
     }
 
+    @Suppress("CAST_NEVER_SUCCEEDS")
     private inner class CosaAdapter(var inventario: List<Cosa>): RecyclerView.Adapter<CosaHolder>(){
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CosaHolder {
             val vista = layoutInflater.inflate(R.layout.celda_layout, parent, false)
             return CosaHolder(vista)
         }
+
+        override fun getItemCount() = inventario.size
+
         @SuppressLint("ResourceAsColor")
         override fun onBindViewHolder(holder: CosaHolder, position: Int) {
             val cosa = inventario[position]
@@ -152,7 +163,39 @@ class TablaCosasFragment : Fragment(){
             }
         }
 
-        override fun getItemCount() = inventario.size
+        //Ordenar arreglo de nuevo después del drag
+        fun swapItems(fromPosition: Int, toPosition: Int) {
+            val nombreDeCosaAyuda : String = inventario[fromPosition].nombreDeCosa
+            val valorEnPesosAyuda : Int = inventario[fromPosition].valorEnPesos
+            val fechaDeCreacionAyuda : Date = inventario[fromPosition].fechaDeCreacion//El toString() puede que no sirva
+            val numeroDeSerieAyuda : UUID = inventario[fromPosition].numeroDeSerie
+
+
+            if (fromPosition < toPosition) {
+                for (i in fromPosition until toPosition) {//Antes eb vez del until era ..
+                    inventario[i].nombreDeCosa = inventario[i+1].nombreDeCosa
+                    inventario[i].valorEnPesos = inventario[i+1].valorEnPesos
+                    inventario[i].numeroDeSerie = inventario[i+1].numeroDeSerie
+                    inventario[i].fechaDeCreacion = inventario[i+1].fechaDeCreacion
+                    //inventario.set(i, inventario.set(i+1, inventario.get(i)));
+                }
+            } else {
+                for (i in fromPosition..toPosition + 1) {
+                    inventario[i].nombreDeCosa = inventario[i-1].nombreDeCosa
+                    inventario[i].valorEnPesos = inventario[i-1].valorEnPesos
+                    inventario[i].numeroDeSerie = inventario[i-1].numeroDeSerie
+                    inventario[i].fechaDeCreacion = inventario[i-1].fechaDeCreacion
+                    //inventario.set(i, inventario.set(i-1, inventario.get(i)));
+                }
+            }
+
+            inventario[toPosition].nombreDeCosa = nombreDeCosaAyuda
+            inventario[toPosition].valorEnPesos = valorEnPesosAyuda
+            inventario[toPosition].fechaDeCreacion = fechaDeCreacionAyuda
+            inventario[toPosition].numeroDeSerie = numeroDeSerieAyuda
+
+            notifyItemMoved(fromPosition, toPosition)
+        }
     }
 
     private fun detectaGestosEnTabla()
@@ -162,8 +205,8 @@ class TablaCosasFragment : Fragment(){
             override fun onMove(recyclerView: RecyclerView,
                                 viewHolder: RecyclerView.ViewHolder,
                                 target: RecyclerView.ViewHolder): Boolean {
-                //TODO("Not yet implemented")
-                //Esta parte es para el drag aparentemente.
+                /*adapter?.swapItems(viewHolder.adapterPosition, target.adapterPosition)
+                return true*/
                 return false//Se pone porque no se está implementando y así no arroje un error
             }
 
@@ -186,5 +229,22 @@ class TablaCosasFragment : Fragment(){
         }
         val touchHelper= ItemTouchHelper(gestosCallback)
         touchHelper.attachToRecyclerView(tableRecyclerView)
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    private inner class DragManageAdapter(adapter: CosaAdapter, context: TablaCosasFragment, dragDirs: Int, swipeDirs: Int) : ItemTouchHelper.SimpleCallback(dragDirs, swipeDirs){
+        var nameAdapter = adapter
+
+
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+            nameAdapter.swapItems(viewHolder.adapterPosition, target.adapterPosition)
+            tableRecyclerView.adapter?.notifyItemMoved(viewHolder.adapterPosition, target.adapterPosition)
+            tableRecyclerView.adapter?.notifyItemRangeChanged(0, kotlin.math.max(viewHolder.adapterPosition, target.adapterPosition), Any())
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+        }
     }
 }
